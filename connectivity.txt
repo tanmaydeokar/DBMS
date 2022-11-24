@@ -1,0 +1,28 @@
+import mysql.connector
+mydb = mysql.connector.connect(
+ host="localhost",
+ user=" root",
+# password="",
+ database="db3"
+)
+mycursor = mydb.cursor()
+sql = "INSERT INTO stud1 (name, rno) VALUES ('Ram', 22)"
+mycursor.execute(sql)
+mydb.commit()
+print(mycursor.rowcount, "record inserted.")
+
+
+import pymongo
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["db"]
+print(mydb.list_collection_names())
+print('code is working')
+collist = mydb.list_collection_names()
+if "tecomp" in collist:
+ print("The collection exists.")
+ 
+ mycol = mydb["tecomp"]
+ 
+ x = mycol.find_one()
+print(x) 
+ 
