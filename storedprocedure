@@ -1,0 +1,29 @@
+create table Stud_marks(Sname varchar2(20),Total_marks number(5));
+create table result(Roll_Number number(5),Sname varchar2(20),class varchar2(20));
+
+create procedure Proc_Grade18(Roll_Number number,Sname varchar2,Total_marks number) as  
+class varchar2(20); 
+ 
+ begin 
+ 
+ if(Total_marks<=1500 and Total_marks>=990)then 
+ class:= 'Distinction'; 
+ 
+  elsif(Total_marks<=989 and Total_marks>=900)then 
+  class:='First Class'; 
+ 
+ elsif(Total_marks<=899 and Total_marks>=825)then 
+ class:='Higher Second class'; 
+ end if; 
+ insert into Stud_marks values(Sname,Total_marks); 
+ insert into result values(Roll_Number,Sname,class); 
+ end; 
+ /
+ exec Proc_Grade18(101,'Simran',1445)
+ select * from Stud_marks;
+ select  * from result;
+ exec Proc_Grade18(102,'Harry',825)
+ exec Proc_Grade18(103,'Emma',1000)
+ exec Proc_Grade18(104,'Snape',900)
+select * from Stud_marks;
+select * from result;
