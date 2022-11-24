@@ -37,3 +37,63 @@ ALTER TABLE Manages RENAME TO Management;
 
 #Q7. Add Column Asset to Company table.
 ALTER TABLE Company ADD Asset VARCHAR(20);
+
+
+
+
+
+
+#Q1. Create a View1 to display List all customers in alphabetical order who have loan from 
+Pune_Station branch.
+
+CREATE VIEW Pune_Station_Customers AS
+SELECT Depositor.cust_name FROM Depositor WHERE Depositor.acc_no IN (SELECT Account.Acc_no FROM Account WHERE Account.branch_name='Pune_Station') ORDER BY ASC;
+SELECT * FROM Pune_Station_Customers;
+
+
+#Q2. Create View2 on branch table by selecting any two columns and perform insert, update and delete operations.
+CREATE VIEW Branch_Table AS
+SELECT Branch.branch_name, Branch.branch_city FROM Branch;
+
+SELECT * FROM Branch_Table;
+
+INSERT INTO Branch_Table VALUES('New','New_City');
+SELECT * FROM Branch_Table;
+
+UPDATE Branch_Table SET branch_name='New_B' WHERE branch_city='New_City';
+SELECT * FROM Branch_Table;
+
+DELETE FROM Branch_Table WHERE branch_city='New_City';
+SELECT * FROM Branch_Table;
+
+
+#Q3. Create View3 on borrower and depositor table by selecting any one column from each table 
+perform insert update delete operations.
+CREATE VIEW Depo_Borro AS
+SELECT Depositor.acc_no, Borrower.loan_no FROM Depositor FULL OUTER JOIN Borrower on Depositor.cust_name=Borrower.cust_name;
+
+SELECT * FROM Depo_Borro;
+
+
+#Q4. Create Union of left and right joint for all customers who have an account or 
+loan or both at bank.
+SELECT Depositor.cust_name FROM Depositor
+UNION
+SELECT Borrower.cust_name FROM Borrower;
+
+#Q5. Display content of View1,View2,View3
+SELECT * FROM Pune_Station_Customers;
+SELECT * FROM Branch_Table;
+SELECT * FROM Depo_Borro;
+
+#Q6. Create simple and unique index.
+CREATE INDEX id_acc ON Account(Acc_no);
+CREATE UNIQUE INDEX id_loan ON Loan(loan_no);
+
+#Q7. Display index information.
+SHOW INDEX FROM database_name.table_name;
+
+#Q8. Truncate table Customer.
+SELECT * FROM Customer;
+TRUNCATE TABLE Customer;
+SELECT * FROM Customer;
