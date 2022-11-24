@@ -1,0 +1,39 @@
+Q1. Find the names of all employees who work for ‘TCS’.
+SELECT Works.employee_name FROM Works WHERE Works.company_name='TCS';
+
+
+Q2. Find the names and company names of all employees sorted in ascending order of company 
+name and descending order of employee names of that company.
+SELECT Works.employee_name, Works.company_name FROM Works ORDER BY Works.company_name ASC, Works.employee_name DESC;
+
+
+Q3. Change the city of employee working with InfoSys to ‘Bangalore’.
+# BEFORE
+SELECT Employee.employee_name, Employee.city FROM Employee;
+
+# QUERY
+UPDATE Employee SET Employee.city = 'Bangalore' WHERE Employee.employee_name IN (SELECT Works.employee_name FROM Works WHERE Works.company_name='InfoSys');
+
+# AFTER
+SELECT Employee.employee_name, Employee.city FROM Employee;
+
+
+Q4. Find the names of all employees who earn more than the average salary of all employees of their 
+company. Assume that all people work for at most one company.
+SELECT Works.employee_name, Works.company_name FROM Works WHERE employee_name
+IN (SELECT Works.employee_name FROM Works 
+WHERE Works.salary > (SELECT AVG(Works.salary) FROM Works));
+
+
+#Q5. Find the names, street address, and cities of residence for all employees who work for 'TechM' 
+and earn more than $10,000.
+SELECT Employee.employee_name, Employee.street, Employee.city FROM Employee
+WHERE Employee.employee_name IN (SELECT Works.employee_name FROM Works WHERE Works.company_name='TechM' AND Works.salary>10000);
+
+
+#Q6. Change name of table Manages to Management.
+ALTER TABLE Manages RENAME TO Management;
+
+
+#Q7. Add Column Asset to Company table.
+ALTER TABLE Company ADD Asset VARCHAR(20);
