@@ -1,0 +1,23 @@
+1)db.s.aggregate( { $group :{ _id : "$Designation",totalSal : { $sum : "$Salary"}}},{$match : 
+{totalSal : { $lte : 200000 } } } )
+2)db.s.aggregate([{$match:{Designation:"DBA"}},{$group:{_id:"$Company_name",totalSal
+:{$sum:"$Salary"}}}])
+3)db.s.aggregate ([{$unwind:"$Expertise"},{$match:{Name:"Swapnil"}}]).pretty()
+4)db.s.aggregate([{$group:{_id:"$Company_name",min:{$min:"$Salary"},
+max:{$max:"$Salary"}}}])
+5)db.emp.find({Designation:"DBA"}).explain("executionStats")
+db.emp.ensureIndex( { "Designation": 1 } )
+6)db.emp.find({"Expertise.2":"Java"}).explain("executionStats")
+db.emp.ensureIndex({"Expertise.Java":1})
+7)db.emp.getIndexes()
+
+1)db.s.aggregate([{$match:{Designation:"DBA"}},{$group:{_id:"$Address",totalSal:{$sum:
+"$Salary"}}}])
+2)db.s.aggregate([{$match:{Designation:"DBA"}},{$group:{_id:"$Company_name",totalSal
+:{$sum:"$Salary"}}}])
+3)db.s.aggregate( [{$group: {_id: "$Designation",AvgSal: { $avg: "$Salary" }}}, { $sort: { 
+AvgSal: 1 } }] )
+4)db.s.aggregate([{$unwind:"$Expertise"},{$group:{_id:"$Expertise",number:{$sum:1}}})
+5)db.emp.find().sort( { Name: 1, Age: -1 } ).explain("executionStats")
+db.emp.ensureIndex( { Name : 1, Age : -1 } )
+6)db.emp.getIndexes()
